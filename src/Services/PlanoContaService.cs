@@ -19,8 +19,8 @@ namespace myfinance_web_netcore.Services
 
         public IEnumerable<PlanoConta> ListarPlanoContas()
         {
-            Console.WriteLine(_myFinanceDbContext.PlanoConta.ToList());
-            return _myFinanceDbContext.PlanoConta;
+            return _myFinanceDbContext.PlanoConta.ToList();
+            //return _myFinanceDbContext.PlanoConta;
         }
     }
 }
