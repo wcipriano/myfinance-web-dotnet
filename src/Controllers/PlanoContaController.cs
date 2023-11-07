@@ -11,16 +11,14 @@ namespace myfinance_web_netcore.Controllers;
 public class PlanoContaController : Controller
 {
     private readonly ILogger<PlanoContaController> _logger;
-    private readonly IMapper _mapper;
+
     private readonly IPlanoContaService _planoContaService;
 
     public PlanoContaController(ILogger<PlanoContaController> logger,
-                                IPlanoContaService planoContaService,
-                                IMapper mapper)
+                                IPlanoContaService planoContaService)
     {
         _logger = logger;
         _planoContaService = planoContaService;
-        _mapper = mapper;
     }
 
     [HttpGet]
@@ -41,11 +39,7 @@ public class PlanoContaController : Controller
         // }
         // ViewBag.ListaPlanoConta = listaPlanoContaModel
 
-        //var listaPlanoContaModel = _mapper.Map<PlanoContaModel>(_planoContaService.ListarPlanoContas());
-        var listaPlanoContaModel = _planoContaService.ListarPlanoContas();
-        var lista = _mapper.Map<IEnumerable<PlanoContaModel>>(listaPlanoContaModel);
-        //@TODO: Refatoração Passar este mapeamento para o serviço: /Services/PlanoContaService.cs
-        //listaPlanoContaModel.Select(_mapper.Map<PlanoContaModel>);
+        var lista = _planoContaService.ListarPlanoContas();
         ViewBag.ListaPlanoConta = lista;
         return View();
     }
