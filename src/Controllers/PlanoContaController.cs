@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using myfinance_web_netcore.Models;
 using myfinance_web_netcore.Services;
@@ -12,22 +11,22 @@ public class PlanoContaController : Controller
 {
     private readonly ILogger<PlanoContaController> _logger;
 
-    private readonly IPlanoContaService _planoContaService;
+    private readonly IPlanoContaService _service;
 
     public PlanoContaController(ILogger<PlanoContaController> logger,
-                                IPlanoContaService planoContaService)
+                                IPlanoContaService service)
     {
         _logger = logger;
-        _planoContaService = planoContaService;
+        _service = service;
     }
 
     [HttpGet]
     [Route("Index")]
     public IActionResult Index()
     {
-        //var listaPlanoConta = _planoContaService.ListarPlanoContas();
+        //var listaPlanoConta = _planoContaService.Listar();
         // List<PlanoContaModel> listaPlanoContaModel = new();
-        // foreach (var item in _planoContaService.ListarPlanoContas())
+        // foreach (var item in _planoContaService.Listar())
         // {
         //     var planoConta = new PlanoContaModel()
         //     {
@@ -39,8 +38,8 @@ public class PlanoContaController : Controller
         // }
         // ViewBag.ListaPlanoConta = listaPlanoContaModel
 
-        var lista = _planoContaService.ListarPlanoContas();
-        ViewBag.ListaPlanoConta = lista;
+        var lista = _service.Listar();
+        ViewBag.ListItems = lista;
         return View();
     }
 
@@ -51,8 +50,8 @@ public class PlanoContaController : Controller
     {
         if (id != null)
         {
-            //var registro = _planoContaService.RetornarRegistro((int)id);
-            //return View(registro);
+            var registro = _service.RetornarRegistro((int)id);
+            return View(registro);
         }
         return View();
     }
@@ -62,7 +61,7 @@ public class PlanoContaController : Controller
     [Route("Cadastro/{id}")]
     public IActionResult Cadastro(PlanoContaModel model)
     {
-        // _planoContaService.Salvar(model);
+        _service.Salvar(model);
         return RedirectToAction("Index");
     }
 
@@ -70,7 +69,7 @@ public class PlanoContaController : Controller
     [Route("Excluir/{id}")]
     public IActionResult Excluir(int id)
     {
-        // _planoContaService.Excluir(id);
+        _service.Excluir(id);
         return RedirectToAction("Index");
     }
 
