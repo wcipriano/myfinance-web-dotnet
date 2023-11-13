@@ -58,7 +58,8 @@ O banco de dados foi implementado no MS SQL Server, versão 2019-latest
 ## Backlog:
 
 - [ ] Plano contas: Form Validation
-- [ ] CRUD Transações
+- [ ] Transações: Data default now in form (/src/Views/Transacao/Cadastro.cshtml)
+- [ ] Melhorias Layout, topo, rodape, etc
 - [ ] Documentação
 
 ## REFS:

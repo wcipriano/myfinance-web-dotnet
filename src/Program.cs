@@ -11,9 +11,10 @@ builder.Services.AddDbContext<MyFinanceDbContext>();
 
 //Services
 builder.Services.AddTransient<IPlanoContaService, PlanoContaService>();
+builder.Services.AddTransient<ITransacaoService, TransacaoService>();
 // builder.Services.AddAutoMapper(AssemblyUtil.GetCurrentAssemblies());
 builder.Services.AddAutoMapper(typeof(PlanoContaMap));
-
+builder.Services.AddAutoMapper(typeof(TransacaoMap));
 
 var app = builder.Build();
 
