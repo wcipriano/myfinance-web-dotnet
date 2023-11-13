@@ -13,6 +13,7 @@ namespace myfinance_web_netcore.Models
         public double Valor { get; set; }
 
         public int PlanocontaId { get; set; }
+        public string? PlanocontaTipo { get; set; }
 
         public DateTime Data { get; set; }
 

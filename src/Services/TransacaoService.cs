@@ -20,9 +20,18 @@ namespace myfinance_web_netcore.Services
 
         public IEnumerable<TransacaoModel> Listar()
         {
-            var list = _myFinanceDbContext.Transacao.ToList();
-            var lista = _mapper.Map<IEnumerable<TransacaoModel>>(list);
-            return lista;
+            var list = _myFinanceDbContext.Transacao.Join(_myFinanceDbContext.PlanoConta,
+                        t => t.PlanocontaId, pc => pc.Id,
+                        (t, pc) => new TransacaoModel()
+                        {
+                            Id = t.Id,
+                            Descricao = t.Descricao,
+                            Valor = t.Valor,
+                            Data = t.Data,
+                            PlanocontaId = t.PlanocontaId,
+                            PlanocontaTipo = pc.Tipo
+                        }).ToList();
+            return list;
         }
 
         public TransacaoModel RetornarRegistro(int id)
