@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using myfinance_web_netcore.Domain;
+using DotEnv.Core;
 
 namespace myfinance_web_netcore.Infrastructure
 {
@@ -10,7 +11,8 @@ namespace myfinance_web_netcore.Infrastructure
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      var connStr = @"Server=localhost,1433\\Catalog=myfinance;Database=myfinance;User=sa;Password=SqlS1-Fin;TrustServerCertificate=True;";
+      var reader = new EnvLoader().AddEnvFile(".env").Load();
+      string connStr = reader["CONNECTION_STRING"];
       optionsBuilder.UseSqlServer(connStr);
     }
   }
