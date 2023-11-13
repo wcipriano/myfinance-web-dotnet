@@ -15,7 +15,27 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Plano de contas</label>
-            @Html.DropDownListFor(m => m.PlanocontaId, Model.PlanoContaList, new { @class = "form-select" })
+            @Html.DropDownListFor(m => m.PlanocontaId, Model.PlanoContaSelectList, new
+                {
+                    @id = "planocontas_cb",
+                    @class = "form-select",
+                    @onchange = "javascript:change_pc(this)"
+                })
+        </div>
+        <div id="ipc_d" class="alert alert-warning d-none" role="alert">
+            Despesa
+        </div>
+        <div id="ipc_r" class="alert alert-info d-none" role="alert">
+            Receita
+        </div>
+
+        <div id="planocontas_dv" class="d-none">
+            @{
+                foreach (var item in Model.PlanocontaList)
+                {
+                    <span id="pci_@item.Id" alt="@item.Tipo">@item.Descricao</span>
+                }
+            }
         </div>
         <div class="mb-3">
             <label class="form-label" for="txtValor">Valor</label>
@@ -35,8 +55,34 @@
 
 
 <script>
+    function clear_alert () {
+        let arr = new Array('ipc_d', 'ipc_r');
+        arr.forEach((id) => {
+            let el = document.getElementById(id);
+            if (el) el.classList.add('d-none');
+        });
+    }
+
+    function change_pc (obj) {
+        clear_alert();
+        const ipc = $(`#pci_${obj.value}`);
+        if (ipc) {
+            let tipo = ipc.attr('alt');
+            if (tipo) {
+                let id = `ipc_${tipo.toLocaleLowerCase()}`;
+                let el = document.getElementById(id);
+                if (el) el.classList.remove('d-none');
+            }
+        }
+    }
+
     function Voltar () {
         console.log("Voltar: ");
         window.location.href = "/Transacao/Index";
     }
+
+    window.addEventListener("load", (ev) => {
+        let obj = document.getElementById("planocontas_cb");
+        change_pc(obj);
+    });
 </script>

@@ -15,8 +15,10 @@ namespace myfinance_web_netcore.Models
         public int PlanocontaId { get; set; }
         public string? PlanocontaTipo { get; set; }
 
+        public IEnumerable<PlanoContaModel>? PlanocontaList { get; set; }
+
         public DateTime Data { get; set; }
 
-        public IEnumerable<SelectListItem>? PlanoContaList { get; set; }
+        public IEnumerable<SelectListItem>? PlanoContaSelectList { get; set; }
     }
 }
