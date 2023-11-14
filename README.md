@@ -7,17 +7,40 @@ Wager Cipriano - 993540
 Implementação de uma aplicação Web, aquitetura MVC, em dotnet C# para controle de finanças:
 [Link da Atividade no LMS](https://pucminas.instructure.com/courses/152488/discussion_topics/584975)
 
+## Requisitos:
+
+Runtimes:
+
+- Microsoft.AspNetCore.App 7.0.13 [/usr/lib/dotnet/shared/Microsoft.AspNetCore.App]
+- Microsoft.NETCore.App 7.0.13 [/usr/lib/dotnet/shared/Microsoft.NETCore.App]
+
+SDKs:
+
+- 7.0.113 [/usr/lib/dotnet/sdk]
+
 ## Banco de dados:
 
 O banco de dados foi implementado no MS SQL Server, versão 2019-latest
 
-## Ferramentas e Arquitetura:
+## Arquitetura:
 
-- dotnet .NET
+### Diagrama Arquitetural
+
+Arquitetura utilizada foi o MVC, um padrão de design usado para desacoplar a interface do usuário (VIEW), os dados (MODEL) e a lógica do aplicativo (CONTROLLER).
+
+![Arquitetura My Finance](./MyFinanceWeb-Arquitetura.png)
+
+### Frontend
+
+- Razor ([ref](https://learn.microsoft.com/pt-br/aspnet/core/mvc/views/razor?view=aspnetcore-7.0))
+
+### Backend
+
+- Dotnet .NET
 - SGBD: MS SQL Server 2019-latest
 - C# + EntityFrameworkCore + EntityFrameworkCore.SqlServer
 - AutoMapper + AutoMapper.Extensions.Microsoft.DependencyInjection
--
+- DotEnv.Core
 
 ## Create local Database
 
@@ -32,6 +55,8 @@ O banco de dados foi implementado no MS SQL Server, versão 2019-latest
    DATABASE_URL. Example: `@"Server=localhost,1433\\Catalog=myfinance;Database=myfinance;User=sa;Password=SqlS1-Fin;TrustServerCertificate=True;"`
 
 ## Setup Local
+
+Procedimento para instalação local:
 
 1. Clone project:
    `git clone git@github.com:wcipriano/myfinance-web-dotnet.git`
@@ -55,12 +80,21 @@ O banco de dados foi implementado no MS SQL Server, versão 2019-latest
 1. Build application: `dotnet build`
 1. Run the application: `dotnet watch run`
 
+## Funcionalidades extras implementadas:
+
+- [x] RF100 – Confirmação ao excluir Transação
+- [x] RF101 – Ajuste Tela de Plano de Contas: Tipo = radio.
+- [x] RF102 – Ajuste Tela de Registro de Transações: Incluir Forma Pgto
+      pagamento com validação de campo apenas para transações do tipo "Despesa"
+- [ ] RF103 – Relatório de Transações por Período:
+- [ ] RF104 – Gráfico de Receitas vs Despesas por Período:
+
 ## Backlog:
 
 - [ ] Plano contas: Form Validation
-- [ ] Transações: Data default now in form (/src/Views/Transacao/Cadastro.cshtml)
+- [ ] Transações: Colocar data padrão sendo a data atual no form (/src/Views/Transacao/Cadastro.cshtml)
 - [ ] Melhorias Layout, topo, rodape, etc
-- [ ] Documentação
+- [ ] Testes unitários
 
 ## REFS:
 
