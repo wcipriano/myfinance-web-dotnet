@@ -43,8 +43,9 @@ public class TransacaoController : Controller
         {
             transacaoModel = _service.RetornarRegistro((int)id);
         }
-
-        transacaoModel.PlanocontaList = _planoContaService.Listar(); ;
+        transacaoModel.PlanocontaList = _planoContaService.Listar();
+        var listaFops = _service.ListarFops();
+        transacaoModel.FormaPagamentoSelectList = new SelectList(listaFops, "Id", "Descricao");
         var PlanoContasSelectItens = new SelectList(transacaoModel.PlanocontaList, "Id", "Descricao");
         transacaoModel.PlanoContaSelectList = PlanoContasSelectItens;
         return View(transacaoModel);

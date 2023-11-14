@@ -6,7 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Transacao" asp-action="Cadastro" method="post">
+<form asp-controller="Transacao" asp-action="Cadastro" method="post" onsubmit="javascript: return valideForm();">
     <div class="container">
         <div class="mb-3">
             <input type="hidden" id="txtId" class="form-control" asp-for="Id" />
@@ -19,14 +19,26 @@
                 {
                     @id = "planocontas_cb",
                     @class = "form-select",
-                    @onchange = "javascript:change_pc(this)"
+                    @onchange = "javascript:change_pc()"
                 })
         </div>
-        <div id="ipc_d" class="alert alert-warning d-none" role="alert">
+        <div id="ipc_D" class="alert alert-warning d-none" role="alert">
             Despesa
         </div>
-        <div id="ipc_r" class="alert alert-info d-none" role="alert">
+        <div id="ipc_R" class="alert alert-info d-none" role="alert">
             Receita
+        </div>
+
+        <div id="fop_container" class="mb-3">
+            <label class="form-label">Forma de Pgto</label>
+            @Html.DropDownListFor(m => m.FormaPagamentoId, Model.FormaPagamentoSelectList, new
+                {
+                    @id = "formapagamento_cb",
+                    @class = "form-select",
+                })
+            <div id="validationFopFeedback" class="invalid-feedback">
+                Please choose a payment method.
+            </div>
         </div>
 
         <div id="planocontas_dv" class="d-none">
@@ -56,33 +68,59 @@
 
 <script>
     function clear_alert () {
-        let arr = new Array('ipc_d', 'ipc_r');
+        let arr = new Array('ipc_D', 'ipc_R');
         arr.forEach((id) => {
             let el = document.getElementById(id);
             if (el) el.classList.add('d-none');
         });
     }
 
-    function change_pc (obj) {
-        clear_alert();
+    function get_tipo_trans () {
+        let tipo = "";
+        let obj = document.getElementById("planocontas_cb");
         const ipc = $(`#pci_${obj.value}`);
-        if (ipc) {
-            let tipo = ipc.attr('alt');
-            if (tipo) {
-                let id = `ipc_${tipo.toLocaleLowerCase()}`;
-                let el = document.getElementById(id);
-                if (el) el.classList.remove('d-none');
+        if (ipc) tipo = ipc.attr('alt');
+        return tipo.toLocaleUpperCase();
+    }
+
+    function change_pc () {
+        let tipo = get_tipo_trans();
+        if (tipo) {
+            clear_alert();
+            let id = `ipc_${tipo}`;
+            let el = document.getElementById(id);
+            if (el) el.classList.remove('d-none');
+            let fopc = document.getElementById("fop_container");
+            let fopcb = document.getElementById("formapagamento_cb");
+            if (tipo == "D") {
+                fopc.classList.remove('d-none');
+            }
+            else {
+                fopc.classList.add('d-none');
+                fopcb.value = "";
             }
         }
     }
 
+    function valideForm () {
+        let feedFop = document.getElementById("validationFopFeedback");
+        feedFop.style.display = 'none';
+        let tipo = get_tipo_trans();
+        if (tipo == 'D') {
+            let fopcb = document.getElementById("formapagamento_cb");
+            if (fopcb.value == "") {
+                feedFop.style.display = 'block';
+                return false;
+            }
+        }
+        return true;
+    }
+
     function Voltar () {
-        console.log("Voltar: ");
         window.location.href = "/Transacao/Index";
     }
 
     window.addEventListener("load", (ev) => {
-        let obj = document.getElementById("planocontas_cb");
-        change_pc(obj);
+        change_pc();
     });
 </script>

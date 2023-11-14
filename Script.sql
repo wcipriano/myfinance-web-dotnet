@@ -21,6 +21,9 @@ CREATE TABLE dbo.transacao (
 	data DATETIME NULL DEFAULT GETDATE()
 );
 
+ALTER TABLE dbo.transacao ADD formapagamentoid varchar(2); ---Dinheiro(DH), Débito(DB), Pix(PX), Crédito(CR), Boleto(BL).
+
+
 
 INSERT INTO planoconta (descricao, tipo) values ('Alimentação', 'D');
 INSERT INTO planoconta (descricao, tipo) values ('Aluguel', 'D');

@@ -34,6 +34,18 @@ namespace myfinance_web_netcore.Services
             return list;
         }
 
+        public IEnumerable<FormaPagamentoModel> ListarFops()
+        {
+            List<FormaPagamentoModel> list = new List<FormaPagamentoModel>();
+            list.Add(new FormaPagamentoModel("", "Selecione"));
+            list.Add(new FormaPagamentoModel("DL", "Boleto"));
+            list.Add(new FormaPagamentoModel("DB", "Débito"));
+            list.Add(new FormaPagamentoModel("DH", "Dinheiro"));
+            list.Add(new FormaPagamentoModel("CR", "Crédito"));
+            list.Add(new FormaPagamentoModel("PX", "Pix"));
+            return list.ToList();
+        }
+
         public TransacaoModel RetornarRegistro(int id)
         {
             var item = _myFinanceDbContext.Transacao.Where(item => item.Id == id).First();

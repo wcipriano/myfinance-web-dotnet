@@ -20,5 +20,8 @@ namespace myfinance_web_netcore.Models
         public DateTime Data { get; set; }
 
         public IEnumerable<SelectListItem>? PlanoContaSelectList { get; set; }
+
+        public string? FormaPagamentoId { get; set; }
+        public IEnumerable<SelectListItem>? FormaPagamentoSelectList { get; set; }
     }
 }
