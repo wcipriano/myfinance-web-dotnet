@@ -3,15 +3,14 @@ CREATE DATABASE myfinance;
 
 use myfinance;
 
-drop table dbo.transacao;
-drop table dbo.planoconta;
+-- drop table dbo.transacao;
+-- drop table dbo.planoconta;
 
 CREATE TABLE dbo.planoconta (
 	id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	descricao varchar(100) NOT NULL,
 	tipo char(1) NOT NULL
 );
-
 
 CREATE TABLE dbo.transacao (
 	id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -21,8 +20,8 @@ CREATE TABLE dbo.transacao (
 	data DATETIME NULL DEFAULT GETDATE()
 );
 
-ALTER TABLE dbo.transacao ADD formapagamentoid varchar(2); ---Dinheiro(DH), Débito(DB), Pix(PX), Crédito(CR), Boleto(BL).
-
+ALTER TABLE dbo.transacao ADD formapagamentoid varchar(2); 
+---Dinheiro(DH), Débito(DB), Pix(PX), Crédito(CR), Boleto(BL).
 
 
 INSERT INTO planoconta (descricao, tipo) values ('Alimentação', 'D');
